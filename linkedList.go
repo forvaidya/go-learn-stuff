@@ -12,6 +12,9 @@ type Node struct {
 }
 
 func (currNode *Node) traverse() {
+	if currNode == nil {
+		return
+	}
 	fmt.Println(currNode.data)
 	if currNode.next != nil {
 		currNode.next.traverse()
@@ -66,24 +69,43 @@ func (currNode *Node) reverse_new() *Node {
 
 }
 
+func (currNode *Node) reverse_iter() *Node {
+
+	var next *Node
+	var prev *Node
+	var current *Node
+
+	current = currNode
+
+	for current != nil {
+		next = current.next
+		current.next = prev
+		prev = current
+		current = next
+	}
+
+	return prev
+
+}
+
 func main() {
-	myList := &Node{-100, nil}
+	myList := &Node{-9, nil}
 	myList.append(1)
 	myList.append(2)
 	myList.append(3)
 	myList.append(4)
 
-	myList.append(102)
+	myList.reverse_iter().traverse()
 
-	myList.append(102)
-	myList.append(103)
+	/*
 
-	fmt.Println("============= Forward ============")
-	myList.traverse()
+		fmt.Println("============= Forward ============")
+		myList.traverse()
 
-	fmt.Println("============= Reverse ============")
-	myList.reverse_new().traverse()
+		fmt.Println("============= Reverse ============")
+		myList.reverse_new().traverse()
 
-	fmt.Println("============= END ============")
+		fmt.Println("============= END ============")
 
+	*/
 }
