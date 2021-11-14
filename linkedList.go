@@ -33,17 +33,57 @@ func (currNode *Node) append(data int) {
 	}
 }
 
+func (currNode *Node) reverse_new() *Node {
+	var tmpNode *Node
+	prevNode := currNode
+
+	if currNode == nil {
+		return tmpNode // return nil
+	}
+
+	if currNode.next == nil {
+		return currNode // only one node ::return node itself
+	}
+
+	tmpNode = currNode.next.reverse_new()
+	tmpNodex := tmpNode
+
+	/*
+		why this snippet
+		because I have to attach temp node to extreme end.
+		This is a hog
+
+	*/
+	for tmpNodex.next != nil {
+		tmpNodex = tmpNodex.next
+	}
+
+	/* end why this snippet */
+
+	tmpNodex.next = prevNode
+	tmpNodex.next.next = nil
+	return tmpNode
+
+}
+
 func main() {
 	myList := &Node{-100, nil}
-	myList.append(100)
-	myList.append(101)
+	myList.append(1)
+	myList.append(2)
+	myList.append(3)
+	myList.append(4)
+
+	myList.append(102)
+
 	myList.append(102)
 	myList.append(103)
 
 	fmt.Println("============= Forward ============")
 	myList.traverse()
-	fmt.Println("============= REVERSE ============")
-	myList.reverse()
-	fmt.Println("============= End ============")
+
+	fmt.Println("============= Reverse ============")
+	myList.reverse_new().traverse()
+
+	fmt.Println("============= END ============")
 
 }
